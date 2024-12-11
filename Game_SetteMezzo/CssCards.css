@@ -1,0 +1,55 @@
+#Denari1, #Denari2, #Denari3, #Denari4, #Denari5, #Denari6, #Denari7, #Denari8, #Denari9, #Denari10, 
+#Coppe1, #Coppe2, #Coppe3, #Coppe4, #Coppe5, #Coppe6, #Coppe7, #Coppe8, #Coppe9, #Coppe10, 
+#Spade1, #Spade2, #Spade3, #Spade4, #Spade5, #Spade6, #Spade7, #Spade8, #Spade9, #Spade10, 
+#Bastoni1, #Bastoni2, #Bastoni3, #Bastoni4, #Bastoni5, #Bastoni6, #Bastoni7, #Bastoni8, #Bastoni9, #Bastoni10 {
+	width:80px; height:137;
+	background: gray url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Carte_napoletane_al_completo.jpg/800px-Carte_napoletane_al_completo.jpg') no-repeat;
+} 
+* { 
+	font:Times New Roman 20pt 'Script',  'Segoe Script', Sans;
+}
+#Denari1	{ background-position:	0px		0px;}
+#Denari2	{ background-position:	-80px		0px;}
+#Denari3	{ background-position:	-160px		0px;}
+#Denari4	{ background-position:	-240px		0px;}
+#Denari5	{ background-position:	-320px		0px;}
+#Denari6	{ background-position:	-400px		0px;}
+#Denari7	{ background-position:	-480px		0px;}
+#Denari8	{ background-position:	-560px		0px;}
+#Denari9	{ background-position:	-640px		0px;}
+#Denari10	{ background-position:	-720px		0px;}
+#Coppe1	{ background-position:	0px		-137px;}
+#Coppe2	{ background-position:	-80px	-137px;}
+#Coppe3	{ background-position:	-160px	-137px;}
+#Coppe4	{ background-position:	-240px	-137px;}
+#Coppe5	{ background-position:	-320px	-137px;}
+#Coppe6	{ background-position:	-400px	-137px;}
+#Coppe7	{ background-position:	-480px	-137px;}
+#Coppe8	{ background-position:	-560px	-137px;}
+#Coppe9	{ background-position:	-640px	-137px;}
+#Coppe10	{ background-position:	-720px	-137px;}
+#Bastoni1	{ background-position:	0px		-274px;}
+#Bastoni2	{ background-position:	-80px	-274px;}
+#Bastoni3	{ background-position:	-160px	-274px;}
+#Bastoni4	{ background-position:	-240px	-274px;}
+#Bastoni5	{ background-position:	-320px	-274px;}
+#Bastoni6	{ background-position:	-400px	-274px;}
+#Bastoni7	{ background-position:	-480px	-274px;}
+#Bastoni8	{ background-position:	-560px	-274px;}
+#Bastoni9	{ background-position:	-640px	-274px;}
+#Bastoni10	{ background-position:	-720px	-274px;}
+#Spade1	{ background-position:	0px		-411px;}
+#Spade2	{ background-position:	-80px	-411px;}
+#Spade3	{ background-position:	-160px	-411px;}
+#Spade4	{ background-position:	-240px	-411px;}
+#Spade5	{ background-position:	-320px	-411px;}
+#Spade6	{ background-position:	-400px	-411px;}
+#Spade7	{ background-position:	-480px	-411px;}
+#Spade8	{ background-position:	-560px	-411px;}
+#Spade9	{ background-position:	-640px	-411px;}
+#Spade10	{ background-position:	-720px	-411px;}
+
+p{
+	border:2px solid  black;
+	border-radius: 20px;
+}

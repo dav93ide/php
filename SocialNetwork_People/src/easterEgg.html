@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>EasTeR Egg</title>
+<script src="js/jquery-2.2.4.min.js"></script>
+<style>
+	body{
+		background-image: url("img/Img07.jpg");
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+	a{
+			color:#0F0;
+	}
+	a:hover{
+		color:#F00;
+	}
+	img{
+		width:150px;
+		height:150px;
+		border:2px solid #FFF;
+		cursor:pointer;
+	}
+</style>
+</head>
+<body>
+
+<div style="text-align:center;color:#FF0;">
+	<br/><br/>
+	<span style="color:#F00;font-size:20px;">
+		PeoPle Analysis
+	<br/><br/>
+	</span>
+	
+	<span style="color:#FFF;">
+		Si riporta in questa pagina l'analisi superficiale del web service e relative vulnerabilita` riscontrate sottolineando 
+		come non vi fosse alcun sistema di sicurezza preventivo nel momento dell'analisi se non le configurazioni di base di XAMPP, e rispettivo
+		MySql.
+	</span> <br/><br/>
+	
+	<span class="proxyS" style="color:#0F0;cursor:pointer;">
+		Proxy: the sword you are using to protect you has the same attack power of the sword that somebody is using to attack you 
+	</span> <br/><br/><br/>
+	<div class="proxy">
+		<span style="color:#FF0" >
+			Premessa:
+		</span>
+			Sebbene l'utilizzo di un proxy per monitorare i pacchetti che lo attraversano al fine di garantire la sicurezza della rete sia
+			uno dei metodi piu` efficaci per proteggersi da attacchi provenienti dall'esterno, risulta altrettanto vero che l'utilizzo di un proxy
+			agevola notevolmente operazioni di analisi a fine malevoli e la creazione di un vettore d'attacco valido.
+		<br/>
+		<span style="color:#FF0" >
+			Run:
+		</span>
+			BurpSuite, purtroppo in edizione free, e` un tool molto pratico per effettuare il monitoraggio dei pacchetti, manipolazione delle richieste
+			nonche` altre operazioni di testing e scanning.
+			<br/>
+			<img class="imgclass" src="pct/IMG01.png" />
+			<br/>
+			Viene settato un proxy in ascolto attraverso il quale far passare tutto il traffico.
+			<br/>
+			<img class="imgclass" src="pct/IMG02.png" />
+			<br/>
+			Viene impostato il browser per reindirizzare verso il proxy in ascolto tutte le richieste in entrata e in uscita, a questo punto se il proxy
+			e` attivo sara` necessario, dal pannello di BurpSuite, far passare (forward) o bloccare (drop) le varie richieste e risposte.
+			<br/>
+			<img class="imgclass" src="pct/IMG03.png" />
+			<img class="imgclass" src="pct/IMG04.png" />
+			<br/>
+			Effettuando il log-in dal web service ora e` possibile analizzare tutto il traffico in transito attraverso il proxy.
+			<br/>
+			<img class="imgclass" src="pct/IMG05.png" />
+			<img class="imgclass" src="pct/IMG06.png" />
+			<br/>
+			BurpSuite mette a disposizione uno spider automatico per enumerare tutte le risorse presenti sullo specifico dominio nonche` alcune
+			specifiche richieste. A differenza dello spidering manuale (usare il proxy e navigare clickando sulle varie risorse, link ecc), lo 
+			spidering automatico genera un "rumore" non indifferente nelle richieste ricevute dal server e nei log: fondamentale per il web admin
+			saper riconoscere un operazione di spidering automatico nel caso non vi siano presenti dei software di difesa specifici.
+			In poco tempo lo spider avra` enumerato tutti i possibili URL accedibili dall'host locale.
+			<br/>
+			<img class="imgclass" src="pct/IMG07.png" />
+			<br/>
+			Altro software degno di nota e` OWASP ZAP che effettua anch'esso operazioni di spidering, analisi del traffico e delle vulnerabilita'."
+			
+			<br/><br/><br/>
+			<img class="imgclass" src="pct/IMG08.png" />
+			<br/>
+			Fornisce direttamente le vulnerabilita` riscontrate tramite un'analisi automatica e...
+			<br/>
+			<img class="imgclass" src="pct/IMG09.png" />
+			<br/>
+			Fornendo un URL piu` accurato indicante un parametro forse iniettabile, effettua automaticamente un testing per verificare se e`
+			possibile un qualunque tipo di SQL Injection.
+			Si noti come OWASP non rilevera` alcuna vulnerabilita` SQL Injection poiche` l'analisi e` stata effettuata non utilizzando la sintassi per 
+			mySQL; solo alcune risposte risultano degne di nota per le tempistiche molto differenti rispetto alla norma, e` comunque sempre opportuno
+			effettuare analisi con piu` tool automatici.
+			
+			<br/><br/><br/><br/><br/>
+		</div>
+		
+		<span class="sqlinjectionS" style="color:#0F0;cursor:pointer;">
+		SQL Injection
+		</span> <br/><br/><br/>
+		<div class="sqlinjection">
+			<span style="color:#FF0" >
+			Run:
+			</span>
+			In seguito all'analisi preliminare si e` passato all'utilizzo di sqlmap per effettuare un testing accurato di possibile iniezione.
+			<br/>
+			<img class="imgclass" src="pct/IMG10.png" />
+			<br/>
+			Poiche` tutte le pagine forse vulnerabili fanno utilizzo di reindirizzamento nel caso in cui non fosse settato un cookie si e` preferito 
+			specificare il cookie da utilizzare nelle richieste recuperandolo direttamente dal web service.
+			<br/>
+			<img class="imgclass" src="pct/IMG11.png" />
+			<br/>
+			Viene testato il parametro "username" mediante GET requests all'URL "/People/otheruser.php?username=": i parametri GET di questo tipo
+			sono normalmente i piu` vulnerabili inoltre lo specifico parametro, durante la scansione con OWASP, aveva dimostrato di non effettuare 
+			una sanificazione dell'input. 
+			<br/>
+			<span style="color:#FF0" >
+			Nota:
+			</span>
+			Un classico metodo di controllo manuale di una SQL Injection per mySQL chiude gli apici usando "	1'='1	", l'operazione e` 
+			assolutamente da evitare poiche` regular expressions e software automatici sono appositamente settati per individuare questi
+			"pattern classici"; e` sempre preferibile utilizzare una stringa randomizzata.
+			<br/>
+			<br/>
+			<img class="imgclass" src="pct/IMG12.png" />
+			<img class="imgclass" src="pct/IMG13.png" />
+			<br/>
+			Abbiamo individuato un parametro vulnerabile a SQL Injection, possiamo quindi sfruttarlo per enumerare i databases, tabelle e colonne.
+			<br/>
+			<img class="imgclass" src="pct/IMG14.png" />
+			<br/>
+			Ma soprattutto nasce la possibilita` di caricare una Web Shell, in questo caso scritta in PHP, ottenendo una shell da locale sull'host
+			remoto. Purtroppo la shell ottenuta ha privilegi operativi limitati.
+			<br/>
+			<img class="imgclass" src="pct/IMG15.png" />
+			<img class="imgclass" src="pct/IMG16.png" />
+			<img class="imgclass" src="pct/IMG17.png" />
+			<img class="imgclass" src="pct/IMG18.png" />
+			<br/>
+			Si procede effettuando un controllo su altri parametri, questa volta in richieste di POST pertanto risulta necessario salvare la
+			"raw request" da BurpSuite per poi utilizzarla con SQLMap.
+			Risultano vulnerabili: "srchuser" di "search.php", "fllwuser" e "username di "userpage.php".
+			<br/>
+			<img class="imgclass" src="pct/IMG19.png" />
+			<img class="imgclass" src="pct/IMG20.png" />
+			<img class="imgclass" src="pct/IMG21.png" />
+			<img class="imgclass" src="pct/IMG22.png" />
+			<br/>
+			sqlmap mette a disposizione un'automatizzazione di shell scripting che permette non solo di ottenere una shell sull'host remoto, ma 
+			anche di caricare automaticamente un potente strumento quale il "Meterpreter" il re delle "DLL Injection".
+			E` possibile notare come non sia risultato utilizzabile il parametro di GET "username"; perche` l'operazione andasse a buon fine e` risultato
+			stato necessario utilizzare un parametro POST vulnerabile (difatti viene effettuato l'upload di un file!!).
+			<br/>
+			Una volta ottenuta la shell Meterpreter, se si dispone degli script corretti, l'host remoto e` sotto il nostro totale controllo.
+			
+			
+			<br/><br/><br/><br/><br/>
+		</div>
+		
+		<span class="meterpreterS" style="color:#0F0;cursor:pointer;">
+		Meterpreter And BeeF
+		</span> <br/><br/><br/>
+		<div class="meterpreter">
+			<br/><br/><br/>
+			Si vedranno ora alcune funzionalita` basalari di questo tool, si tenga presente che ve ne sono molte altre se non (per gli scripter) infinite.
+			<br/>
+			<img class="imgclass" src="pct/IMG23.png" />
+			<img class="imgclass" src="pct/IMG24.png" />
+			<img class="imgclass" src="pct/IMG25.png" />
+			<img class="imgclass" src="pct/IMG26.png" />
+			<img class="imgclass" src="pct/IMG38.jpeg" />
+			<br/>
+			+ Vi e` la possibilita` di effettuare screen su desktop multipli.
+			+ Poiche` un processo "tmpsebazw.exe" con privilegi utente potrebbe risultare un po' strano nel caso in cui qualcuno guardi la process table
+			vi e` la possibilita` di migrare ad un altro processo "scomparendo" totalmente dalla scena: da questo momento in poi il "meterpreter" non e`
+			inviduabile se non esegue alcuna azione e, anche in quel caso, necessita di un'analisi approfondita (iniettato nelle DLL di un processo operante residente).
+			+ Keylogger incorporato
+			+ Possibilita` di avviare programmi, file eseguibili e script sul computer remoto
+			<br/>
+			Ma ora il punto saliente: si scaricheranno tutti i file del web server e se ne modifichera` uno nello specifico.
+			<br/>
+			<img class="imgclass" src="pct/IMG28.png" />
+			<br/>
+			Viene scaricata tutta la cartella contenente il "social network People".
+			<br/>
+			<img class="imgclass" src="pct/IMG27.png" />
+			<br/>
+			Viene caricato il file "index.html"modificato: alla pagina iniziale del web service e` stato aggiunto un hook al "beef-xss-framework".
+			Chiunque visiti la pagina da ora in avanti sara` "agganciato" e piu` o meno limitatamente "controllabile"-"exploitabile".
+			
+			<br/><br/>
+			
+			<img class="imgclass" src="pct/IMG29.png" />
+			<img class="imgclass" src="pct/IMG30.png" />
+			<img class="imgclass" src="pct/IMG31.png" />
+			<img class="imgclass" src="pct/IMG32.png" />
+			<img class="imgclass" src="pct/IMG37.jpeg" />
+			<br/>
+			BeeF sfruttando un hook ad una specifica libreria JavaScript permette di catturare in pochi click i Cookie di sessione ed effettuare
+			innumerevoli altre operazioni; la funzionalita` dell'hook e` garantita fino a quando l'utente resta nella pagina, ad ogni modo esistono
+			metodologie che permettono di ottenere la persistenza anche in questo genere di attacco denominato MitB (Man In The Browser). 
+			BeeF permette di reindirizzare l'utente nonche` di mostrare finestre pop up sul browser della vittima.
+			
+			<br/><br/><br/><br/><br/>
+		</div>
+		
+		<span class="xssS" style="color:#0F0;cursor:pointer;">
+		XSS - Cross Site Scripting
+		</span> <br/><br/><br/>
+		<div class="xss">
+			BeeF e` un esempio estremizzato per complessita` ed efficacia di un attacco di tipo XSS: ad ogni modo l'hook al framework richiede sempre
+			e comunque di effettuare un attacco XSS. 
+			Vengono sotto riportati gli XSS testati manualmente per questa specifica applicazione.
+			<br/>
+			<img class="imgclass" src="pct/IMG33.png" />
+			<img class="imgclass" src="pct/IMG34.png" />
+			<img class="imgclass" src="pct/IMG35.png" />
+			<img class="imgclass" src="pct/IMG36.png" />
+			<br/>
+			Attacchi XSS di tipo riflesso "scritti" in metodi diversi, non fuzzati ne` offuscati.
+			<br/>
+			<img class="imgclass" src="pct/IMG39.png" />
+			<br/>
+			Viene testata manualmente la vulnerabilita` a SQL Injection.
+			<br/>
+			<img class="imgclass" src="pct/IMG40.png" />
+			<img class="imgclass" src="pct/IMG41.png" />
+			<img class="imgclass" src="pct/IMG42.png" />
+			<br/>
+			Per iniettare un iframe che copra la pagina risulta necessario osservare il codice della pagina e "scalare" i vari tag html. 
+			In questo caso l'iniezione e` puramente di codice HTML.
+			
+			<br/><br/>
+			
+			<div style="color:85A">
+			<span>
+			CSRF - Cross Site Request Forgery
+			</span>
+			<br/>
+			<img class="imgclass" src="pct/IMG43.png" />
+			<img class="imgclass" src="pct/IMG44.png" />
+			<img class="imgclass" src="pct/IMG45.png" />
+			<img class="imgclass" src="pct/IMG46.png" />
+			<br/>
+			Viene sfruttata la libreria Jquery per effettuare una richiesta .ajax di post (esiste il metodo apposito ".post", ma pesava controllare la sintassi)
+			verso una pagina del sito. In questo modo si sfruttera` il log dell'utente per inviare una richiesta valida al server: nel primo caso
+			si recuperano i cookie postandoli in risposta ad un post esistente, nel secondo si crea un nuovo post.
+			<br/>
+			<img class="imgclass" src="pct/IMG47.png" />
+			<br/>
+			Possiamo anche inviare messaggi con script all'interno.
+			<br/>
+			<img class="imgclass" src="pct/IMG48.png" />
+			<br/>
+			O possiamo caricare un'immagine finta che avvia lo script.
+			
+			<br/><br/><br/><br/><br/>
+			</div>
+			<span style="color:#F00;font-size:20px;">
+			Too Fast, The End.
+			</span>
+		</div>
+		
+		<span class="myBackDoor" style="color:#0F0;cursor:pointer;">
+		My Simple Pythonic Backdoor °w°
+		</span>
+		<div class="Python" style="background-color:black;color:#0F0;" >
+<br/><br/>
+<span style="content-align:center;">PyThOn!</span><br/><br/>
+<pre>
+        __
+       {0O}
+       \__/
+       /^/
+                   ( (              
+           \_\_____
+           (_______)
+              (_________()Oo
+</pre>
+<br/><br/>
+		</div>
+		<div class="BackPy">
+			<img class="imgclass" src="pct/IMG49.png" />
+			<img class="imgclass" src="pct/IMG50.png" />
+			<br/>
+			Creazione File Di Configurazione Per Bot + Server
+			<br/><br/>
+			<img class="imgclass" src="pct/IMG51.png" />	
+			<img class="imgclass" src="pct/IMG52.png" />
+			<img class="imgclass" src="pct/IMG53.png" />
+			<br/>
+			Avvio Del Server E Del Client Per Il Reverse SSH Tunneling	
+			<br/><br/>
+			<img class="imgclass" src="pct/IMG54.png" />
+			<br/>
+			Connessione Instaurata Invio Comandi Server => Client e ricezione risposta
+			<br/><br/>
+			<img class="imgclass" src="pct/IMG55.png" />
+			<img class="imgclass" src="pct/IMG56.png" />
+			<img class="imgclass" src="pct/IMG57.png" />
+			<br/>
+			Funzionalita` Screenshot
+			<br/><br/>
+			<img class="imgclass" src="pct/IMG58.png" />
+			<br/>
+			Notare come l'immagine venga prima creata nella working directory del programma, inviata al server remoto e quindi eliminata
+			<br/><br/>
+			<img class="imgclass" src="pct/IMG61.png" />
+			<br/>
+			Funzionalita` di base di enumerazione del sistema remoto
+			<br/><br/>
+			<img class="imgclass" src="pct/IMG63.png" />
+			<br/>
+			Funzionalita` di base di invio di un file a un server remoto
+			<br/><br/>
+			<img class="imgclass" src="pct/IMG65.png" />
+			<img class="imgclass" src="pct/IMG67.png" />
+			<br/>
+			Funzionalita` di base per avvelenamento della risoluzione DNS locale per OS linux. <br/>
+			Il client verra` sempre reindirizzato ogni qualvolta visitera` "google.com"
+		</div>
+		
+</div>
+
+<script>
+
+			$(document).ready(function(){
+				
+					$(".proxy").hide();
+					$(".sqlinjection").hide();
+					$(".xss").hide();
+					$(".meterpreter").hide();
+					$(".BackPy").hide();
+					$(".Python").hide();
+					
+					$(".myBackDoor").click(function(){
+						$(".BackPy").show(1000);
+						$(".Python").show(10);
+						});
+					$(".BackPy").dblclick(function(){
+						$(".BackPy").hide(1000);
+						$(".Python").hide();
+						});
+					$(".proxyS").click(function(){
+						$(".proxy").show(1000);
+						});
+					$(".sqlinjectionS").click(function(){
+						$(".sqlinjection").show(1000);
+						});
+					$(".xssS").click(function(){
+						$(".xss").show(1000);
+						});
+					$(".meterpreterS").click(function(){
+						$(".meterpreter").show(1000);
+						});
+						
+					$(".proxy").dblclick(function(){
+						$(".proxy").hide(1000);
+						});
+					$(".sqlinjection").dblclick(function(){
+						$(".sqlinjection").hide(1000);
+						});
+					$(".xss").dblclick(function(){
+						$(".xss").hide(1000);
+						});
+					$(".meterpreter").dblclick(function(){
+						$(".meterpreter").hide(1000);
+						});
+					$(".imgclass").click(function(){
+						if(parseInt($(".imgclass").css("height").substr(0,($(".imgclass").css("height").length-2))) < $(window).height()){
+							$(".imgclass").css({"width": $(window).width(), "height" : $(window).height()});
+						}else{
+							$(".imgclass").css({"width": 150, "height" : 150});
+						}
+					});
+			});
+
+</script>
+
+</body>
+</html>

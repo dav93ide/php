@@ -1,0 +1,238 @@
+<!--|☼|»»»»»»»»»»»»»»»»»»»»»»x««««««««««««««««««««««|☼|
+    |☼|      ________________________________       |☼|
+    |☼|      |7eMMeZZo|    |------|     |PhP| 	    |☼|
+    |☼|      ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯       |☼|
+    |☼|»»»»»»»»»»»»»»»»»»»»»»x««««««««««««««««««««««|☼|-->
+
+<html>
+	<head>
+		<title> Project Info </title>
+		<link href="CssLayouts.css" rel="stylesheet" type="text/css">
+	</head>
+	<body id="blackBody">
+		<div id="topImage" style="background-image: url(img_02.png); border:2px solid  #0F0;"> </div>
+		<center><br/><br/>
+			<font style="border:2px solid  red;border-radius: 100px;color:#08F;font-size:35;font-family:'Segoe Script';">
+				Procedi Al Gioco =>
+					<a href="MainPage.php"> LINK </a>
+			</font> <br/> <br/> 
+		</center> <br/> <br/> <br/>
+			<center> <font color=#0F0 size=6> Requisiti </font> <br/><br/><br/>
+			<font color=yellow size=3> Python 2.7.11 , Apache , mySQL <br/> <br/>
+				Testato con Firefox, la visualizzazione in altri browser potrebbe comportare problemi. <br/>
+				Utilizza credenziali di default per l'accesso a mySQL.</font></center><br/><br/><br/>
+			<center> <font color=#0F0 size=6> Si Richiede </font> </center> <br/>
+			<font color=white size=2> La realizzazione del gioco "7 1/2" mediante l'uso dei linguaggi:
+				<font color=yellow size=2>	PhP/HTML/Javascript. </font> <br/>
+				Il gioco deve supportare una modalit&aacute Giocatore vs Computer con calcolo dei punteggi, stampa a video delle carte e condizioni di vittoria/sconfitta/pareggio.
+			</font> <br/> <br/>
+			<center> <font color=#0F0 size=6> Risultato & Sviluppo </font> </center> <br/><br/>
+			<font color=yellow size=3> Oltre alle richieste di base sono state effettuate le seguenti aggiunte: </font><br/>
+			<font color=white size=2>
+				<ol type="1">
+					<li> Il gioco "7 E Mezzo" &eacute stato trasformato in "7 E Mezzo Casin&ograve Royal". </li>
+					<li> Supporta, come ogni casin&ograve che si rispetti, la possibilit&agrave di effettuare delle puntate. </li>
+					<li> Supporta un form di log-in/registrazione gestito tramite uso di mySql. </li>
+					<li> Salva e recupera i dati dell'utente (NumVittorie,ValSaldo,NumSconfitte) e del computer. </li>
+					<li> Supporta una modalit&aacute a due giocatori. </li>
+					<li> Visualizza gli utenti online. </li>
+					<li> Vi &eacute la possibile presenza di bug, oltre a quelli descritti successivamente, non rilevati durante lo sviluppo. </li>
+				</ol>
+			</font> <br/>
+			<font color=yellow size=3> Problematiche: </font> <br/>
+			<font color =white size=2>
+				Nello sviluppo della modalit&aacute a due giocatori: <br/> <br/>
+				<ol type="1">
+					<li> Php &egrave un linguaggio lato server dunque non &eacute possibile instaurare una connessione ad aggiornamento dinamico tra i due host. </li>
+					<li> Utilizzando la serializzazione per il salvataggio delle informazioni sul computer, nel caso di una partit&aacute a due giocatori se questa avvenisse direttamente alla fine della partita il saldo del computer risulterebbe sfasato poich&eacute non terrebbe conto della puntata del secondo giocatore; la puntata effettuata dal secondo giocatore non &egrave ottenibile utilizzando il linguaggio Php poich&eacute essa risiede su una sessione lato client. </li>
+					<li> I valori delle carte e il punteggio del secondo giocatore non sono allo stesso modo ottenibili tramite l'uso delle sessioni </li>
+				</ol><br/>
+				<font color=#07F size=3> Soluzione: </font>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<font color=yellow size=2> Python 2.7! </font> <br/><br/>
+					[Why?]&nbsp;&nbsp;&nbsp; Python &eacute un linguaggio di scripting debolmente tipizzato e object oriented dalla sintassi semplice e veloce.
+					<br/> <br/>
+					[How?]&nbsp;&nbsp;&nbsp; Creazione di un ServerTCP in Python che gestisca le richieste dei client php. La sincronizzazione dei client php &eacute ottenuta tramite l'utilizzo dell'attesa attiva ( funzione sleep() di php, vedi la funzionalit&aacute "Passa Turno") e di un auto-ricaricamento coordinato delle pagine.
+					<br/> <br/><br/>
+			<font color=yellow size=3> Sviluppo: </font><br/>	<br/>
+			<font color=#07F size=3> Classi: </font>
+				<ol type="1">
+					<li> Classe "Computer" contenente tutti gli attributi inerenti alle partite effettuate, vittorie/sconfitte/pareggi ottenuti con rispettivi metodi di "get/set" e un metodo "toString" per la stampa a video tramite ritorno di una stringa. </li>
+					<li> Classe "Giocatore" che eredita dalla superclasse "Computer" tutti gli attributi e i metodi di base aggiungendo un attributo "portafogli" per il saldo dell'utente con rispettivo metodo di get/set nonch&egrave un override del metodo "toString" per aggiungere tale attributo di ritorno. </li>
+					<li> Classe "Cards" contenente: 
+						<ol type="1"> 
+							<li> Attributi:
+								<ol type="1">
+									<li> "nomiCarte", un array costituito da ID-Nomi di tutte le carte, viene utilizzato per recuperare la corrispettiva immagine della carta. </li>
+									<li> "vettoreCarte", un array costituito da valori interi corrispondenti alle carte possedute attualmente dal giocatore/computer </li>
+									<li> "valoreAttuale", un valore intero corrispondente al valore attuale delle carte possedute dal giocatore/computer </li>
+									<li> "hasJolly", un valore booleano che identifica la presenza o meno del jolly tra le carte </li>
+								</ol>
+							</li>
+							<li> Metodi:
+								<ol type="1">
+									<li> "addCarta()", aggiunge carta a "vettoreCarte" e, se questa &eacute un jolly modifica "hasJolly" altrimenti aggiunge anche il valore della carta a "valoreAttuale" </li>
+									<li> "calcolaValori()", nel caso in cui il giocatore/computer possiede un jolly , poich&egrave questo pu&oacute variare il proprio valore tra valori compresi tra 1-7, vi &eacute la necessit&aacute di ricalcolare "valoreAttuale" variando il valore della carta jolly. </li>
+									<li> metodi di "get" per recuperare gli attributi. </li>
+									<li> "haveCard()", controlla la presenza di una carta </li>
+									<li> "traduciCarta()", restituisce un testo pi&uacute consono per rappresentare in formato stringa una carta a partire dal suo valore numerico </li>
+								</ol>
+							</li>
+						</ol>
+					</li>
+				</ol>
+			<font color=#07F size=3> Log-in & Registrazione: </font>
+				<ol type="1">
+					<li> Creazione di un DB denominato 7emmezzo contente le tabelle: utenti, utentionline. </li>
+					<li> Nel caso di una registrazione: 
+						<ol type="a">
+							<li> Errore se il nome &egrave gi&aacute presente. </li>
+							<li> Hashing con "sale" della password tramite la funzione nativa di php "password_hash()" utilizzando come algoritmo di Hashing la costante "PASSWORD_DEFAULT". </li>
+							<li> Memorizzazione del nuovo record nella tabella </li>
+						</ol>
+					</li>
+					<li> Nel caso di un login: 
+						<ol type="1">
+							<li> Controllo presenza del nome utente in elenco e validit&aacute dei valori inseriti nei campi username/password, altrimenti restituisce un errore </li>
+							<li> Recupero la password corrispondente al nome utente </li>
+							<li> Tramite la funzione nativa di php "password_verify()" confronto la password inserita (non "hashata") con l'Hash della password ottenuto </li>
+							<li> Se le password corrispondono l'autenticazione &eacute valida </li>
+						</ol>
+					</li>
+				</ol>
+			<font color=#07F size=3> Serializzazione: </font>
+				<ol type="1">
+					<li> "serializzaOggetti()" effettua la serializzazione degli oggetti Giocatore e Computer salvando gli oggetti serializzati in un file ".dat" presente nella cartella "dataDir" </li>
+					<li> "readFromFileSerializedObject()" recupera una stringa leggendo ogni riga non vuota presente in un file ".dat" e la restituisce per poter effettuare la deserializzazione dell'oggetto </li>
+				</ol>
+			<font color=#07F size=3> Funzioni Database: </font>
+				<ol type="1">
+					<li> "checkDB()" controlla vi sia la base di dati "7emmezzo", in caso contrario richiama "initDB()" per la creazione del DB e delle tabelle </li>
+					<li> "insertUserDB()" e "insertOnlineDB" rispettivamente inserisce un nuovo utente tra quelli registrati e tra quelli online </li>
+					<li> "searchNameDB()" ricerca un nome utente all'interno della tabella contenente gli utenti registrati </li>
+					<li> "loginDB()" esegue l'autenticazione del Log-In </li>
+					<li> "deleteUserOnline()" richiamata quando un utente esegue un "Log-Out", elimina il corrispondente nome utente dalla tabella contenente i nomi degli utenti online </li>
+					<li> "getOnlineUsers()" restituisce un array contenente tutti gli utenti online </li>
+					<li> La tabella "usertab" contiene l'username, la password degli utenti registrati e la data di registrazione. La sua chiave primaria &eacute un ID di tipo numerico auto-incrementante. Definendo il campo ID come auto-incrementate vi &eacute la possibilit&aacute di inserire una coppia di valori "username/password" passando solo questi due valori in una query di tipo "insert". </li>
+					<li> La tabella "useronline" &eacute costituita da un ID auto-incrementate, da un username e dall'ultima data di connessione. </li>
+				</ol>
+			<font color=#07F size=3> PHP TCP Client: </font>
+				<ol type="1">
+					<li> Nel momento in cui viene richiesta l'esecuzione di una partita a 2 giocatori vi &eacute la necessit&aacute di recuperare un altro nome utente con il quale giocare, un identificativo della partita e di settare uno tra i due giocatori come "primo a pescare". Per fare ci&oacute:
+					<ol type="1">
+						<li> Viene inviato al server PythonTCP il proprio nome utente e si tenta di recuperare un altro nome utente disponibile </li>
+						<li> Se si recupera con successo un nome utente si tenta di recuperare l'ID della partita </li>
+						<li> Se anche questo viene recuperato correttamente si procede alla schermata di gioco settando come "primo a pescare" l'utente che per primo ha recuperato entrambe le informazioni necessarie </li>
+						<li> Se non si riesce a recuperare un nome utente appare un messaggio di attesa, per generare una richiesta dinamica del nome utente ogni 5 secondi si effettua un auto-ricaricamento della pagina. </li>
+					</ol>
+					</li>
+					<li> Nella pagina per la modalit&aacute a due giocatori: 
+						<ol type="1">
+							<li> Si genera una richiesta dinamica di invio/ricezione delle carte effettuando un auto-ricaricamento della pagina asincrono. Ossia: se l'utente &eacute in una fase di pescaggio, deve inviare la carta pescata, il tempo di ricaricamento &eacute superiore a quello dell'utente in fase di attesa, deve ricevere la carta. <br/> Tempo in fase di pescaggio: 8s <br/> Tempo in fase di attesa: 2s </li>
+							<li> Ogni qualvolta un utente invia  le carte pescate, sia quella da lui pescata sia, se presente/i, quella pescata/e dal computer, viene disabilitata la possibilit&aacute di pescare ulteriori carte e l'utente viene posto in attesa fino a quando non riceve una carta o un "salta turno" o un "ha lasciato la partita" dall'altro giocatore </li>
+							<li> Prima di richiede le carte inviate dall'altro utente viene inviata una richiesta per controllare se effettivamente vi siano delle carte da recuperare </li>
+							<li> Se un giocatore lascia la partita viene inviato un messaggio al server che lo fa rimbalzare verso il client avvisandolo, da quel momento la partita procede come se fosse in modalit&aacute a giocatore singolo. </li>
+							<li> Se un giocatore ha pi&uacute punti dell'altro giocatore e il computer ha superato la soglia punti corrispondente a "7.5" compare la possibilit&aacute di saltare il turno; l'esecuzione viene gestita come sopra. L'utente che ha saltato il turno viene messo in attesa utilizzando la funzione nativa di php "sleep()" per 5 secondi, questo permette di accertarsi che l'utente avversario recuperi il valore "Ended" dal dizionario "dictGame" prima dell'utente che ha effettuato il salto del turno. </li>
+							<li> Per controllare se il giocatore avversario ha lasciato la partita o ha passato il turno viene effettuato un controllo sulle voci "end" e "pass" del dizionario "dictGame". Se il valore di ritorno corrisponde a "Pass" significa che l'utente avversario ha passato il turno, se corrisponde a "Ended" che ha abbandonato la partita. </li>
+							<li> Per garantire la serializzazione corretta dell'oggetto "computer" nella fase di invio e recupero degli username viene anche inviato il valore attuale della puntata effettuata dall'utente. Questo valore viene recuperato dall'utente nella cui partita avviene la "vittoria/sconfitta" per effettuare un calcolo corretto sui soldi vinti o persi dal computer prima della serializzazione degli oggetti. L'altro utente nel momento della sconfitta riceverà un messaggio e verrà serializzato unicamente l'oggetto "utente" a lui corrispondente. </li>
+							<li> Nel caso in cui l'utente 2 abbandoni la partita o superi la soglia del "7.5" viene escluso dalla partita e questa procede come se fosse in modalit&aacute giocatore singolo. </li>
+						</ol>
+					</li>
+				</ol>
+			<font color=#07F size=3> Python TCP Server: </font>
+				<ol type="1">
+					<li> Per gestire connessioni multiple dai client viene creato un Thread ad ogni connessione ricevuta, al Thread creato viene passato come "hook" (funzione a cui agganciarsi) una funzione per la gestione delle richieste del client ("clientHandler()"). </li>
+					<li> "clientHandler()" ha due parametri di input, rispettivamente la socket generata all'instaurarsi della connessione con il client e un valore numerico corrispondente al numero della connessione attuale fra tutte quelle generate dall'avvio del server </li>
+					<li> "clientHandler()" eseguendo un controllo sul primo valore contenuto nella stringa di richiesta inviata dal client identifica l'azione da eseguire su tale richiesta. <br/> I codici sono:
+						<ol type="1">
+							<li> Il client richiede un username del giocatore 2 e un ID della partita </li>
+							<li> Il client richiede l'invio delle carte </li>
+							<li> Il client richiede di recuperare le carte inviate dall'altro utente </li>
+							<li> Il client richiede di controllare se vi sono carte inviate dall'altro utente </li>
+							<li> Il client avverte il server che la partita &eacute terminata </li>
+							<li> Il client avverte il server di aver effettuato un "passo turno" </li>
+							<li> Il client avverte il server di aver abbandonato la partita prima della fine </li>
+							<li> Il client richiede la puntata effettuata dall'altro utente </li>
+						</ol>
+					</li>
+					<li> Analisi Delle Varie Richieste:
+						<ol type="1">
+							<li> Quando un utente richiede l'username dell'avversario e un idgame invia il proprio nome utente, dunque si gestisce nel modo seguente la richiesta:
+								<ol type="1">
+									<li> Viene controllato se &eacute presente il suo username tra le chiavi del dizionario "dict", se il l'username &eacute presente significa che un altro utente lo ha gi&aacute ricevuto in risposta alla richiesta dunque  si invia il nome utente dell'avversario, si cancella tale indice dal dizionario quindi si recupera e invia l'ID della partita. A questo punto il client invia la propria puntata e questa viene memorizzata nel dizionario di dizionari "dictGame" sotto la voce di identificazione del sotto-dizionario "IDPartita" e sotto la voce "nomeGiocatore" di quest'ultimo dizionario (dictGame[idGame]['nomeGiocatore']). </li>
+									<li> Se il caso sopra non &eacute valido viene iterata la lista "list2" contenente tutti gli username dei client in attesa. Se un username presente in "list2" non corrisponde all'username inviato nella richiesta lo si invia e si cancellano i due username, se presenti, da "list2". A questo punto si iterano le chiavi del dizionario "dictGame", queste corrispondono a tutti gli ID delle partite presenti; al primo ID libero lo si preleva e lo si invia al client dunque si procede nel recupero della puntata effettuata. </li>
+									<li> Se nessuno dei casi sopra risulta valido si aggiunge il nuovo username a "list2". </li>
+								</ol>
+							</li>
+							<li> Quando un utente richiede di inviare le carte:
+								<ol type="1">
+									<li> La prima carta inviata sar&aacute sempre quella del giocatore e la si salva nel dizionario "dictGame[idGame]['cards']" usando come chiave per il dizionario contenuto l'ID della partita e come voce per tale dizionario "cards" </li>
+									<li> Tutte le altre carte sono del computer. Non &eacute detto che queste carte siano presenti e non vi &eacute la possibilit&aacute di conoscere il numero delle carte perci&oacute si avvia un loop "while" che continua fino a quando il client non invia un "END". A questo punto tutte le carte sono state ricevute e si procede a salvarle aggiungendole nella stessa chiave dizionario ma separandole con dei caratteri delimitatori "." necessari per il recupero dei valori. </li>
+								</ol>
+							</li>
+							<li> Quando un utente richiede di recuperare le carte:
+								<ol type="1">
+									<li> Si controlla se le voci "pass" e "end" alla voce "IDPartita" del dizionario di dizionari "dictGame" sono settate, in caso lo siano si ritorna rispettivamente un "ha passato il turno" o un "ha abbandonato la partita" altrimenti si procede con l'invio delle carte. </li>
+									<li> Nel caso in cui vi siano carte e i campi "pass" e "end" siano nulli viene semplicemente inviata la stringa contenente tutte le carte nel formato "valC1.valC2.valC3.valC4. ... ..." </li>
+									<li> Infine si pone a "null" ( None in Python ), il valore campo "cards" del dizionario </li>
+								</ol>
+							</li>
+							<li> Quando un utente richiede di controllare se vi sono delle carte:
+								<ol type="1">
+									<li> Si controlla se nel dizionario di dizionari "dictGame" sotto la voce "IDPartita" è settata una tra le voci "cards","pass" e "end". </li>
+									<li> Se nessuno dei due casi &eacute valido si invia uno "0" al client, altrimenti "1" </li>
+								</ol>
+							</li>
+							<li> Quando un utente invia un "fine partita":
+								<ol type="1">
+									<li> Si elimina dal dizionario di dizionari "dictGame" il campo corrispondente al valore ID partita inviato. </li>
+								</ol>
+							</li>
+							<li> Quando un utente invia un "passa turno":
+								<ol type="1">
+									<li> Viene controllato se il campo ['end'] del dizionario "dictGame" corrispondente all'ID partita inviato non &eacute gi&aacute settato ( cio&eacute se l'altro utente non ha abbandonato proprio in quel momento la partita ) </li>
+									<li> Viene dunque settato il campo "pass" a "True" </li>
+								</ol>
+							</li>
+							<li> Quando un utente invia un "lasciato la partita in corso":
+								<ol type="1">	
+									<li> Viene semplicemente settato a "True" il campo del dizionario "dictGame" sotto la voce "end" corrispondente all'ID partita inviato. </li>
+									<li> Nel caso in cui tale campo "end" fosse già stato settato in precedenza, significa che entrambi i giocatori hanno abbandonato la partita (controllo comunque effettuato su lato client, ma effettuato nuovamente nel server per sicurezza) dunque si procede all'eliminazione della voce "IDPartita" dal dizionario "dictGame" </li>
+								</ol>
+							</li>
+							<li> Quando un utente richiede la puntata dell'altro utente:
+								<ol type="1">
+									<li> Si recupera l'username dell'utente avversario </li>
+									<li> Utilizzando come chiavi l'ID partita e tale username si recupera dal dizionario di dizionari "dictGame" la puntata effettuata dall'utente avversario quindi la si invia. (dictGame[idGame]['nomeGiocatore']) </li>
+								</ol>
+							</li>
+						</ol>
+					</li>
+				</ol>
+				<font color=yellow size=3> Non Supporta: </font><br/><br/>
+					<ol type="1">
+						<li> Se un utente abbandona la partita non cliccando sul bottone di "logout" ma direttamente chiudendo il browser o il processo corrispondente non viene cancellato l'username tra gli utenti online. Risolto: </li>
+						<ol type="1">
+							<li> Creazione di una funzione che controlli il tempo dell'ultimo "aggiornamento" di tutti gli utenti presenti nella tabella "useronline" ad ogni caricamento della pagina "UserPage".</li>
+							<li> Cancellazione di tutti i record che non sono stati "aggiornati" negli ultimi 60 secondi.</li>
+							<li> (Note: Effettuando il controllo solo sulla pagina "UserPage" nel caso in cui un utente rimanga per più di 60 secondi in una pagina del gioco senza ripassare per tale pagina, questi verrà eliminato dalla lista)
+						</ol>
+						<li> Possono sorgere problemi nell'utilizzo della modalit&aacute a due giocatori, per la gestione di questi il server TCP fornisce appositamente output significativi a scopo di debugging </li>
+						<li> Sorgeranno sicuramente dei problemi nell'utilizzo della modalit&aacute a due giocatori se si interagisce con la finestra con azioni non previste quali ricaricare la pagina o cliccare brutalmente e casualmente i bottoni presenti </li>
+						<li> Non vi &eacute alcun controllo sugli accessi alle variabili condivise effettuati dai vari threads avviati per gestire le richieste dei client. Dunque avviando pi&uacute di 2 clients vi &eacute la possibilit&acute che insorgano dei conflitti. </li>
+					</ol>
+				<font color=yellow size=3> Possibili Modifiche: </font><br/><br/>
+					<ol type="1">
+						<li> Vi &eacute la possibilit&aacute di modificare la metodologia utilizzata per la gestione della modalit&acute a due giocatori. Per esempio si potrebbe creare una classe "partita" che memorizzi gradualmente tutti i dati relativi a una determinata partita in un file. I client leggeranno a turno da questo file recuperando le informazioni relative ai punteggi, carte ecc... della propria partita. </li>
+						<li> Vi &eacute la possibilit&aacute di modificare totalmente la gestione dei login e delle registrazioni utilizzando il server TCP di Python invece di PhP. ( Ma forse PhP &eacute la soluzione migliore )</li>
+						<li> Vi &eacute la possibilit&aacute di aggiungere una modalit&aacute a 3 Giocatori definendo dei nuovi dizionari e una nuova lista, ma continuando a sfruttare la metodologia di gestione attualmente utilizzata alla quale si dovranno ovviamente aggiungere eventuali funzioni aggiuntive </li>
+					</ol><br/><br/><br/><br/>
+				<font color=yellow size=3> Detto Questo... </font><br/><br/>
+			</font>
+			<center> <font color=#0F0 size=20> Buon Divertimento (: </font> <br/>
+				[*] La Sensazione Che Vi Sia Qualcosa Di Evidente Eppure Non Visto Perché Incomprensibile. [*] <br/>
+				[*] La Percezione Che Tutto Sia Vacuo Eccetto La Ricerca Di Questo Qualcosa. [*] <br/>
+				<font color=orange size=5> &#2384 </font>
+			</center>
+	</body>
+</html>

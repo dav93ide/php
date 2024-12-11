@@ -1,0 +1,24 @@
+
+
+#main{
+width:960px;
+margin:50px auto;
+font-family:raleway;
+}
+
+#login{
+width:99.5%;
+padding:10px;
+margin-top:8px;
+border:1px solid #ccc;
+padding-left:5px;
+font-size:16px;
+font-family:raleway
+}
+
+
+#logout{
+float:right;
+padding:5px;
+border:dashed 1px gray
+}

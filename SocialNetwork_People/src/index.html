@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>PeoPle</title>
+<link rel="stylesheet" href="css/Styles.css">
+  <script src="js/jquery-2.2.4.min.js"> </script>
+  <script src="js/prefixfree.min.js"></script>
+<style>
+	body{
+		background-image: url("img/Img02.jpg");
+		background-color: #000;
+	}
+	.colordiv.two{
+		background-image: url("img/Img08.jpg");
+		height: 100%;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	a{
+		color:#FF0;
+	}
+	a:hover{
+		color:#F00;
+	}
+
+</style>
+</head>
+<body>
+
+<!-- Form LogIn -->
+
+<form method="post" action="check.php" class="login" id="logForm" >
+<br/><br/><br/>
+<span class="ttitle" style="position:fixed;left:25%;top:11%;text-shadow: 15px 15px #809;color:#FA1;" > PeoPle </span> <br/> <br/>
+<div class="colordiv" >
+      <label for="login" style="color:#FFF;opacity:1;" >Username:</label>
+      <input type="text" name="username" id="login" style="color:#4BD;" placeholder="username" required >
+      <label for="password" style="color:#FFFF11;opacity:1;" >Password:</label>
+      <input type="password" name="password" style="opacity:1;" id="password" placeholder="**********" required >
+</div>
+
+    <p class="login-submit" style="position:absolute;top:55%;right:5%;">
+      <button name="log" type="submit" class="login-button" style="background-color:#FFF;"></button>
+    </p>
+
+    <p class="forgot-password" ><a id="forgot_password" style="cursor:pointer;float:right;color:red;"> Forgot your password? </a></p>
+<font style="color:#FA1;position:fixed;top:28%;left:5%;font-size:15px;">REGISTRATI</font>	
+</form>
+
+
+
+<!-- Form Registrazione -->
+
+<form method="post" action="check.php" class="login" id="regForm" >
+<span class="ttitle" style="position:fixed;left:15%;top:11%;text-shadow: 3px 3px #AA3311;color:#33aaEE;" > Registrazione </span> <br/> <br/>
+<br/><br/>
+<div class="colordiv two" style="position:fixed;left:25%;top:25%;bottom:25%;right:25%;" >
+    <div id="leftcol" > <br/>
+<label for="login" style="position:relative;right:10%;color:#FFF;" >Email:</label>
+      <input type="text" name="regmail" id="login" style="color:#FA0;background:#333;margin-bottom:20%;" placeholder="name@example.com" required >
+<label for="login" style="color:#FFF;">Username:</label>
+<input type="text" name="reguser" id="login" style="color:#FA0;background:#333;margin-bottom:20%;" placeholder="Username" required >
+      <label for="password" style="color:#FFF;">Password:</label>
+      <input type="password" name="regpass" id="password" style="color:#FA0;background:#333;margin-bottom:20%;" placeholder="*********" required >
+</div>
+<br/> <br/>
+<div id="rightcol">
+<label for="login" style="color:#FFF;">FirstName:</label>
+<input type="text" name="regname" id="login" style="color:#FA0;background:#333;margin-bottom:20%;" placeholder="First Name" required /> <br/>
+<label for="login" style="color:#FFF;">LastName:</label>
+<input type="text" name="regsurname" id="login" style="color:#FA0;background:#333;margin-bottom:15%;" placeholder="Last Name" required /> <br/><br/>
+<label for="login" style="color:#FFF;">Sesso:</label>
+<input type="radio" name="sex" id="login" value="m" required > M <br/>
+<input type="radio" name="sex" id="login" value="f" required > F
+<buttond class="button2" id="birthlabel" style="position:absolute;right:5%;margin-bottom:20%;" > BirthDate </buttond>
+<div id="logdate"> <br/>	
+<SELECT NAME="day" >
+								<option value="01">01</option>
+								<option value="02">02</option>
+								<option value="03">03</option>
+								<option value="04">04</option>
+								<option value="05">05</option>
+								<option value="06">06</option>
+								<option value="07">07</option>
+								<option value="08">08</option>
+								<option value="09">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+								<option value="24">24</option>
+								<option value="25">25</option>
+								<option value="26">26</option>
+								<option value="27">27</option>
+								<option value="28">28</option>
+								<option value="29">29</option>
+								<option value="30">30</option>
+								<option value="31">31</option>
+</SELECT>
+<SELECT NAME="month" onchange="change_day()" >
+								<option value="01">01</option>
+								<option value="02">02</option>
+								<option value="03">03</option>
+								<option value="04">04</option>
+								<option value="05">05</option>
+								<option value="06">06</option>
+								<option value="07">07</option>
+								<option value="08">08</option>
+								<option value="09">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+</SELECT>
+<SELECT NAME="year" onchange="change_day()">
+								<option value="1900">1900</option>
+								<option value="1901">1901</option>
+								<option value="1902">1902</option>
+								<option value="1903">1903</option>
+								<option value="1904">1904</option>
+								<option value="1905">1905</option>
+								<option value="1906">1906</option>
+								<option value="1907">1907</option>
+								<option value="1908">1908</option>
+								<option value="1909">1909</option>
+								<option value="1910">1910</option>
+								<option value="1911">1911</option>
+								<option value="1912">1912</option>
+								<option value="1913">1913</option>
+								<option value="1914">1914</option>
+								<option value="1915">1915</option>
+								<option value="1916">1916</option>
+								<option value="1917">1917</option>
+								<option value="1918">1918</option>
+								<option value="1919">1919</option>
+								<option value="1920">1920</option>
+								<option value="1921">1921</option>
+								<option value="1922">1922</option>
+								<option value="1923">1923</option>
+								<option value="1924">1924</option>
+								<option value="1925">1925</option>
+								<option value="1926">1926</option>
+								<option value="1927">1927</option>
+								<option value="1928">1928</option>
+								<option value="1929">1929</option>
+								<option value="1930">1930</option>
+								<option value="1931">1931</option>
+								<option value="1932">1932</option>
+								<option value="1933">1933</option>
+								<option value="1934">1934</option>
+								<option value="1935">1935</option>
+								<option value="1936">1936</option>
+								<option value="1937">1937</option>
+								<option value="1938">1938</option>
+								<option value="1939">1939</option>
+								<option value="1940">1940</option>
+								<option value="1941">1941</option>
+								<option value="1942">1942</option>
+								<option value="1943">1943</option>
+								<option value="1944">1944</option>
+								<option value="1945">1945</option>
+								<option value="1946">1946</option>
+								<option value="1947">1947</option>
+								<option value="1948">1948</option>
+								<option value="1949">1949</option>
+								<option value="1950">1950</option>
+								<option value="1951">1951</option>
+								<option value="1952">1952</option>
+								<option value="1953">1953</option>
+								<option value="1954">1954</option>
+								<option value="1955">1955</option>
+								<option value="1956">1956</option>
+								<option value="1957">1957</option>
+								<option value="1958">1958</option>
+								<option value="1959">1959</option>
+								<option value="1960">1960</option>
+								<option value="1961">1961</option>
+								<option value="1962">1962</option>
+								<option value="1963">1963</option>
+								<option value="1964">1964</option>
+								<option value="1965">1965</option>
+								<option value="1966">1966</option>
+								<option value="1967">1967</option>
+								<option value="1968">1968</option>
+								<option value="1969">1969</option>
+								<option value="1970">1970</option>
+								<option value="1971">1971</option>
+								<option value="1972">1972</option>
+								<option value="1973">1973</option>
+								<option value="1974">1974</option>
+								<option value="1975">1975</option>
+								<option value="1976">1976</option>
+								<option value="1977">1977</option>
+								<option value="1978">1978</option>
+								<option value="1979">1979</option>
+								<option value="1980">1980</option>
+								<option value="1981">1981</option>
+								<option value="1982">1982</option>
+								<option value="1983">1983</option>
+								<option value="1984">1984</option>
+								<option value="1985">1985</option>
+								<option value="1986">1986</option>
+								<option value="1987">1987</option>
+								<option value="1988">1988</option>
+								<option value="1989">1989</option>
+								<option value="1990">1990</option>
+								<option value="1991">1991</option>
+								<option value="1992">1992</option>
+								<option value="1993">1993</option>
+								<option value="1994">1994</option>
+								<option value="1995">1995</option>
+								<option value="1996">1996</option>
+								<option value="1997">1997</option>
+								<option value="1998">1998</option>
+								<option value="1999">1999</option>
+								<option value="2000">2000</option>
+								<option value="2001">2001</option>
+								<option value="2002">2002</option>
+								<option value="2003">2003</option>
+								<option value="2004">2004</option>
+								<option value="2005">2005</option>
+								<option value="2006">2006</option>
+								<option value="2007">2007</option>
+								<option value="2008">2008</option>
+								<option value="2009">2009</option>
+								<option value="2010">2010</option>
+								<option value="2011">2011</option>
+								<option value="2012">2012</option>
+								<option value="2013">2013</option>
+								<option value="2014">2014</option>
+								<option value="2015">2015</option>
+								<option value="2016">2016</option>
+</SELECT>
+<br/><br/>
+<buttond class="button2" id="ended" >  Done  </buttond>
+<br/> <br/>
+</div>
+<br/> <br/>
+<buttond class="button1" id="regquestions" style="position:absolute;left:0%;" > SecretQuestion </buttond>
+<div id="questiondiv" >
+<br/>
+<SELECT name="secretquestion" required >
+<option VALUE="q1"> Nome Del Tuo Animale Domestico </option>
+<option VALUE="q2"> Nome Del Tuo Libro Preferito </option>
+<option VALUE="q3"> Data Dell"Evento Pi&ugrave Importante Della Tua Vita </option>
+<option VALUE="q4"> Nome Della Tua Canzone Preferita </option>
+<option VALUE="q5"> Un Codice PIN Alfanumerico Segreto </option>
+<option VALUE="q6"> Nome Del Tuo Film Preferito </option>
+</SELECT>
+<br/><br/>
+<input id="login" type="text" name="secretanswer" placeholder="Risposta Segreta" maxlength=50 required />
+<br/><br/>
+<buttond class="button2" id="ended">Done</buttond>
+<br/><br/>
+</div>
+</div>
+</div>
+<buttond  class="button1" id="logbutton" style="position:fixed;left:5%;bottom:5%;" > Back </buttond>
+    <p>
+      <button name="reg" type="submit" class="login-button" style="position:absolute;top:45%;left:90%;width:150px;" > Registrati </button>
+    </p>
+
+</form>
+
+<!-- Form Recupero Password -->
+
+<form method="post" action="check.php" class="login" id="passForm">
+<span class="ttitle" style="position:absolute;left:18%;top:25%;text-shadow: 2px 2px #58A;color:#FA2;-ms-transform: rotate(-35deg);-webkit-transform: rotate(-35deg);transform: rotate(-35deg);font-size:40px;" > Recupero Password </span> <br/> <br/>
+<br/><br/><br/>    
+<div class="colordiv" style="height:75%;">
+      <label for="login">Username:</label>
+      <input type="text" name="username" id="login" placeholder="Username" required >
+      <label>E-Mail:</label>
+      <input type="text" name="email" id="login" placeholder="indirizzo@email.mail" required > <br/> <br/>
+<buttond class="button2" id="passquestions" style="position:absolute;right:8%;" > SecretQuestion </buttond>
+</div>
+<div id="questiondiv2">
+</div>
+<buttond class="button2" id="logbutton" style="position:fixed;left:5%;bottom:5%;" disabled="disabled" > Back </buttond>
+
+<p style="position:absolute;top:60%;left:85%;">
+	<button name="forgot" type="submit" class="login-button"  >Send Request</button>
+</p>
+</form>
+
+
+<button id="regbutton" class="login-button" style="background-color:#FFF;position:absolute;left:1%;top:25%;" >Registrati</button>
+
+<!--
+	<button class="stopexe" > 
+	Ferma Esecuzione 
+	</button>
+-->
+<div class="container" style="text-align:center;position:fixed;top:45%;left:45%;cursor:pointer;">
+<svg class="ghost" style="z-index:1;" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="127.433px" height="132.743px" viewBox="0 0 127.433 132.743" enable-background="new 0 0 127.433 132.743"
+	 xml:space="preserve">
+<path class="ghostbody" fill="#FFF6F4" d="M116.223,125.064c1.032-1.183,1.323-2.73,1.391-3.747V54.76c0,0-4.625-34.875-36.125-44.375
+	s-66,6.625-72.125,44l-0.781,63.219c0.062,4.197,1.105,6.177,1.808,7.006c1.94,1.811,5.408,3.465,10.099-0.6
+	c7.5-6.5,8.375-10,12.75-6.875s5.875,9.75,13.625,9.25s12.75-9,13.75-9.625s4.375-1.875,7,1.25s5.375,8.25,12.875,7.875
+	s12.625-8.375,12.625-8.375s2.25-3.875,7.25,0.375s7.625,9.75,14.375,8.125C114.739,126.01,115.412,125.902,116.223,125.064z"/>
+<circle fill="#013E51" cx="86.238" cy="57.885" r="6.667"/>
+<circle fill="#013E51" cx="40.072" cy="57.885" r="6.667"/>
+<path fill="#013E51" d="M71.916,62.782c0.05-1.108-0.809-2.046-1.917-2.095c-0.673-0.03-1.28,0.279-1.667,0.771
+	c-0.758,0.766-2.483,2.235-4.696,2.358c-1.696,0.094-3.438-0.625-5.191-2.137c-0.003-0.003-0.007-0.006-0.011-0.009l0.002,0.005
+	c-0.332-0.294-0.757-0.488-1.235-0.509c-1.108-0.049-2.046,0.809-2.095,1.917c-0.032,0.724,0.327,1.37,0.887,1.749
+	c-0.001,0-0.002-0.001-0.003-0.001c2.221,1.871,4.536,2.88,6.912,2.986c0.333,0.014,0.67,0.012,1.007-0.01
+	c3.163-0.191,5.572-1.942,6.888-3.166l0.452-0.453c0.021-0.019,0.04-0.041,0.06-0.061l0.034-0.034
+	c-0.007,0.007-0.015,0.014-0.021,0.02C71.666,63.771,71.892,63.307,71.916,62.782z"/>
+<circle fill="#FCEFED" stroke="#FEEBE6" stroke-miterlimit="10" cx="18.614" cy="99.426" r="3.292"/>
+<circle fill="#FCEFED" stroke="#FEEBE6" stroke-miterlimit="10" cx="95.364" cy="28.676" r="3.291"/>
+<circle fill="#FCEFED" stroke="#FEEBE6" stroke-miterlimit="10" cx="24.739" cy="93.551" r="2.667"/>
+<circle fill="#FCEFED" stroke="#FEEBE6" stroke-miterlimit="10" cx="101.489" cy="33.051" r="2.666"/>
+<circle fill="#FCEFED" stroke="#FEEBE6" stroke-miterlimit="10" cx="18.738" cy="87.717" r="2.833"/>
+<path fill="#000000" stroke="#013E51" stroke-miterlimit="10" d="M116.279,55.814c-0.021-0.286-2.323-28.744-30.221-41.012
+	c-7.806-3.433-15.777-5.173-23.691-5.173c-16.889,0-30.283,7.783-37.187,15.067c-9.229,9.736-13.84,39.251V121.405z"/>
+	<circle fill="#000000" stroke="#FFFFFF" stroke-miterlimit="10" cx="118" cy="55" r="5"/>
+	<path fill="#000000" stroke="#FFFFFF" stroke-miterlimit="10" 
+	d="M118,50 A100,30 0 0,1 235,15"/>
+	<path fill="#00000000" stroke="#FFFFFF" stroke-miterlimit="10" 
+	d="M120,60 L135,70 L120,70"/>
+</svg>
+
+
+  <p class="shadowFrame"><svg version="1.1" class="shadow" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="61px" y="20px"
+	 width="122.436px" height="39.744px" viewBox="0 0 122.436 39.744" enable-background="new 0 0 122.436 39.744"
+	 xml:space="preserve">
+<ellipse fill="#EF3D23" cx="61.128" cy="19.872" rx="49.25" ry="8.916"/>
+    </svg></p>
+    <br/><br/>
+    <p style="color:#000;font-size:25px;">
+		Welcome To People :3
+    </p>
+</div>
+
+<div class="ghostalk" >
+	<br/>Click Me !
+	<br/><span style="font-size:10px"> yArgH! I'm a mighty pirate!</span>	
+	<svg style="position:fixed;left:37.2%;top:20.1%;" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="150px" height="150px" viewBox="0 0 127.433 132.743" enable-background="new 0 0 127.433 132.743"
+	 xml:space="preserve">
+	 <path fill="#FFF" stroke="#000" stroke-miterlimit="10" 
+		d="M55,70 L25,65 L55,55 L49,60 L48,63 L55,70"/>
+</svg>
+	<div class="textEnc" style="position:fixed;left:65%;top:1%;right:0%;font-size:10px;word-wrap:break-word;cursor:pointer;color:#FFF;">
+	</div>
+	<div class="textEnc" style="position:fixed;right:68%;top:1%;left:0%;font-size:10px;word-wrap:break-word;cursor:pointer;color:#2AF;">
+	</div>
+	
+</div>
+
+<div class="pacman" >
+<svg class="toopacman4u" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="200px" height="200px" viewBox="0 0 127.433 132.743" enable-background="new 0 0 127.433 132.743"
+	 xml:space="preserve">
+	 <circle fill="#FFFF00" stroke="#000000" stroke-miterlimit="10" cx="50" cy="50" r="50"/>
+	 <circle fill="#000000" stroke="#000000" stroke-miterlimit="10" cx="30" cy="35" r="10"/>
+	 <circle fill="#FFFFFF" stroke="#FFFFFF" stroke-miterlimit="10" cx="25" cy="38" r="2"/>
+	 <path class="pacmanmouth" fill="#00000000" stroke="#000000" stroke-miterlimit="10" 
+		d="M5,70 L13,85 L25,95 L45,100 L55,100 L55,45"/>
+</svg>
+</div>
+
+<iframe class="errorIframe" src="Error.php" ></iframe>
+
+
+<script type="text/javascript">
+
+	
+
+	$(document).ready(function(){
+		
+		$("#regForm").hide();
+		$("#passForm").hide();
+		
+		$("#questiondiv2").html($("#questiondiv").html());
+		$("#logForm").hide();
+		$("#regbutton").hide();
+		//var timer = window.setInterval( colortime, 11000);
+		//var timer2 = window.setInterval( imgtime, 10000);
+		var pactime = window.setInterval(pacmouth, 100);
+		
+		fillTextEnc();
+		
+		$(".container").click(function(){
+				$(".ghostbody").attr({"fill":"#F0F"});
+				if(drct<=2){
+					$(".toopacman4u").css({"top":"40%","right":-250});
+				}
+				else{
+					$(".toopacman4u").css({"top":"40%","right":$(window).width()});
+				}
+				$(".ghostalk").hide();
+				$(".container").hide(5000);
+				$(".errorIframe").css({"width":"0px","height":"0px"});
+				$(".toopacman4u").hide(5000);
+				$("#logForm").show(500);
+				$("#regbutton").show(500);
+				setTimeout(function(){clearInterval(pactime)},5000);
+		});
+		
+		$("#logbutton, #logbutton").click(function(){
+			var arr = ["#logForm","#regbutton"];
+			$("body").css({"background-image" : "url(\"img/Img02.jpg\")"});
+			hide_others(arr);	
+		});
+
+		
+		$("#regbutton").click(function(){
+			var arr = ["#regForm","#regquestions","#birthlabel","#logbutton"];
+			$("body").css({"background-image" : "url(\"img/Img06.jpg\")"});
+			hide_others(arr);			
+		});
+
+
+		$("#forgot_password").click(function(){
+			var arr = ["#passForm","#passquestions","#logbutton"];
+			$("body").css({"background-image" : "url(\"img/Img03.jpg\")"});
+			hide_others(arr);
+		});
+
+
+		$("#birthlabel").click(function(){
+			var arr = ["#logdate","#regquestions","#regForm","#logbutton"];
+			hide_others(arr);
+		});
+
+
+		 $("#passquestions").click(function(){
+			var arr = ["#questiondiv2","#passForm","#logbutton"];
+			hide_others(arr);
+		});
+
+		$("#regquestions").click(function(){
+			var arr = ["#questiondiv","#birthlabel","#regForm","#logbutton"];
+			hide_others(arr);
+		});
+		
+		$(".textEnc").click(function(){
+				decTextEnc();
+		});
+		
+
+		$("#ended, #ended, #ended").click(function(){
+			if($("#logdate").is(":visible")){
+				var arr = ["#birthlabel","#regForm","#regquestions","#logbutton"];
+				hide_others(arr);
+			}else{
+				if($("#regForm").is(":visible")){
+					var arr = ["#birthlabel","#regForm","#regquestions","#logbutton"];
+					hide_others(arr);
+				}else{
+					var arr = ["#passForm","#passquestions","#logbutton"];
+					hide_others(arr);
+				}
+			}
+		});
+		/*
+		$(".stopexe").click(function(){
+			$(this).css("opacity","0.3");
+			$(this).hide(1000);
+			clearInterval(timer);
+			clearInterval(timer2);	
+		});
+
+		$(".stopexe").mouseover(function(){
+			$(this).css("opacity","1.0");
+		});
+
+		$(".stopexe").mouseleave(function(){
+			$(this).css("opacity","0.3");
+		});
+		*/
+		$(".ttitle").click(function(){
+			colortime();
+		});
+
+	});
+
+
+	function fillTextEnc(){
+		var str = "RG9uJ3QgS2lsbCBUaGUgUGlyYXRlIEdob3N0LCBDb21lIFdpdGggVXMgSW4uLi4=PGEgaHJlZj0iZWFzdGVyRWdnLmh0bWwiPlRoZSBQaXJhdGUgQmF5Li48L2E+";
+		for(i=0;i<100;i++){
+			$(".textEnc").append(str);
+		}
+		
+	}
+	
+	function decTextEnc(){
+			var str = $(".textEnc").text().substr(0,66);
+			var str2 = $(".textEnc").text().substr(66,60);
+			str = window.atob(str);
+			str2 = window.atob(str2);
+			$(".textEnc").text("");
+			for(i=0;i<100;i++){
+			$(".textEnc").append(str);
+			$(".textEnc").append(str2);
+			$(".textEnc").css({"color":"#000"});
+			$(".textEnc").addClass("decoded");
+		}
+	}
+	
+	var arr = ["M5,70 L13,85 L25,95 L45,100 L55,100 L55,45","M5,70 L13,85 L25,95 L42.5,100 L45,90 L55,45","M5,70 L13,85 L25,95 L40,100 L42.5,90 L55,45","M5,70 L13,85 L25,95 L30,90 L55,45","M5,70 L13,85 L15,85 L20,80 L55,45",""];
+	var drct = 1;
+	
+	function pacmouth(){
+		for(i=0;i<=5;i++){
+			if(arr[i] == $(".pacmanmouth").attr("d")){
+				if(i==5){
+					arr = arr.reverse();
+					$(".pacmanmouth").attr({"d":arr[0]});
+					break;
+				}
+				else{
+					$(".pacmanmouth").attr({"d":arr[(i+1)]});
+					break;
+				}
+			}
+		}
+		if(drct <= 2){
+			$(".toopacman4u").css({"transform":"rotate(0deg)","-moz-transform":"rotate(0deg)","-webkit-transform":"rotate(0deg)","-o-transform":"rotate(0deg)","-ms-transform":"rotate(0deg)"});
+			var right = pacmove(50);
+			if((right > $(window).width()) && drct==1){
+				$(".toopacman4u").css({"top":"75%","right":$(window).width()});
+				drct = parseInt(((Math.random() * 100) % 2) + 3);
+			}
+			else{
+				if((right > $(window).width()) && drct==2){
+					$(".toopacman4u").css({"top":"-2%","right":$(window).width()});
+					drct = parseInt(((Math.random() * 100) % 2) + 3);
+				}
+			}	
+		}else{
+			$(".toopacman4u").css({"transform":"rotate(180deg)","-moz-transform":"rotate(180deg)","-webkit-transform":"rotate(180deg)","-o-transform":"rotate(180deg)","-ms-transform":"rotate(180deg)"});
+				var right = pacmove(-50);
+				if((-right > $(window).width()) && drct==3){
+					$(".toopacman4u").css({"top":"75%","right":-250});
+					drct = parseInt(((Math.random() * 100) % 2) + 1);
+				}
+				else{
+					if((-right > $(window).width()) && drct==4){
+						$(".toopacman4u").css({"top":"-2%","right":-250});
+						drct = parseInt(((Math.random() * 100) % 2) + 1);
+					}
+				}
+		}
+	}
+	
+	function pacmove(increment){
+			var value = $(".toopacman4u").css("right");
+			value = (parseInt(value.substr(0,(value.length-2))) + increment);
+			$(".toopacman4u").css({"right" : value});
+			return value;
+	}
+
+
+	function hide_others(params){
+		var arr = ["#regForm","#passForm","#logdate","#questiondiv","#questiondiv2","#birthlabel","#logForm","#regquestions","#regbutton","#logbutton","passquestions"];
+		if(Array.isArray(params)){
+			params.forEach( function(item){
+				if(!$(item).is(":visible")){
+					$(item).show(1000);
+				}
+				arr.splice(arr.indexOf(item), 1);
+			});
+		}else{
+			$(params).show(1000);
+			arr.splice(arr.indexOf(params), 1);
+		}
+		arr.forEach( function(item){
+			if($(item).is(":visible")){
+				$(item).hide(500);
+			}	
+		});
+	}
+	
+
+
+	function change_day(){
+		var value = document.getElementById("regForm").month.value;
+		switch(value){
+			case "01":
+			case "03":
+			case "05":
+			case "07":
+			case "08":
+			case "10":
+			case "12":
+				document.getElementById("regForm").day.options.length = 28;
+				document.getElementById("regForm").day.options[28] = new Option("29","29",false,false)
+				document.getElementById("regForm").day.options[29] = new Option("30","30",false,false)
+				document.getElementById("regForm").day.options[30] = new Option("31","31",false,false)
+			break;
+			case "02":
+				if((document.getElementById("regForm").year.value % 4) == 0){
+					document.getElementById("regForm").day.options.length = 29;
+					document.getElementById("regForm").day.options[28] = new Option("29","29",false,false)
+				}
+				else{
+					document.getElementById("regForm").day.options.length = 28;
+				}				
+			break;
+			case "04":
+			case "06":
+			case "09":
+			case "11":
+				document.getElementById("regForm").day.options.length = 28;
+				document.getElementById("regForm").day.options[28] = new Option("29","29",false,false)
+				document.getElementById("regForm").day.options[29] = new Option("30","30",false,false)	
+			break;
+		}
+	}
+
+	
+	function colortime(){
+		var color, end; 
+		$("span.ttitle").each( function(index, item){
+			color = "#" + String(get_chaos(false)) + String(get_chaos(false)) + String(get_chaos(false));
+			$(item).css("color",color);
+			end = "rgb(" + String(get_chaos(true)) + "," + String(get_chaos(true)) + "," + String(get_chaos(true)) + ") 5px 5px 0px";
+			$(item).css("text-shadow", end);
+		});		
+	}
+
+
+
+	function get_chaos(bool){
+		var chaos;
+		if(!bool){
+			chaos = parseInt((Math.random()*100) % 16);
+			if(chaos > 9){
+				switch(chaos){
+					case 10:
+						chaos = "A";
+					break;
+					case 11:
+						chaos = "B";
+					break;
+					case 12:
+						chaos = "C";
+					break;
+					case 13:
+						chaos = "D";
+					break;
+					case 14:
+						chaos = "E";
+					break;
+					case 15:
+						chaos = "E";
+					break;
+				}
+			}
+		}
+		else{
+			chaos = parseInt((Math.random()*500) % 256);
+		} 
+		return chaos;
+	}
+	
+
+
+	function imgtime(){
+		var chaos, bckgrnd, color;
+		do{
+			chaos = parseInt((Math.random()*100) % 7);
+			bckgrnd = $("body").css("background-image");
+		} while(chaos == bckgrnd.charAt(bckgrnd.length-7) || chaos == 0);
+		$("body").css({"background-image" : (bckgrnd.substring(0,(bckgrnd.length-7)) + chaos + bckgrnd.substring(bckgrnd.length-6))});
+		switch(chaos){
+			case 1:
+				color = "#FF0";
+			break;
+			case 2:
+				color = "#F00";
+			break;
+			case 3:
+				color = "#FFF";
+			break;
+			case 4:
+				color = "#FF0";
+			break;
+			case 5:
+				color = "#FFF";
+			break;
+			case 6:
+				color = "#38A";
+			break;
+		}
+		$("#forgot_password").css("color", color);	
+	}
+
+</script>
+
+</body>
+
+
+</html>
+
+
+<!--
+	Ghost => Copyright (c) 2016 by Helen V. Holmes
+	ArrowButton&FormStyle => Copyright (c) 2012-2013 Thibaut Courouble
+-->
